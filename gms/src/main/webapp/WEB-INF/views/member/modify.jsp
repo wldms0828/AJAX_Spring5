@@ -1,0 +1,73 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<div id="contentBox" style="width:100%; height:300px;">
+	<form id="updateForm">
+	<table id="updateTable" style="width:100%; height:100%;">
+		<tr>
+			<td id="updateMemberProfile" rowspan="3" colspan="2">
+				<img  src="${img}/mypage/profile.png" alt="" />
+			</td>
+			<td style="width: 50px">ID</td>
+			<td>${user.userid}</td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td>${user.name}</td>
+		</tr>
+		<tr>
+			<td>비밀번호</td>
+			<td>
+				<input id="password" type="text" name="password" placeholder="${user.password}"/>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 50px;height: 50px">성별</td>
+			<td>${user.gender}</td>
+			<td style="width: 50px;height: 50px">팀</td>
+			<td>
+	           <input type="radio" id="teamid_1" name="teamid" 
+	           			value="nolja" />걍놀자
+	           <input type="radio" id="teamid_2" name="teamid" 
+	           			value="jieunzip" />지은이네
+	           <input type="radio" id="teamid_3" name="teamid" 
+	           			value="turtleking" />왕거북이
+	           <input type="radio" id="teamid_4" name="teamid" 
+	           			value="coddingstar" />코딩스타 
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 50px;height: 50px">나이</td>
+			<td>${user.age}</td>
+			<td style="width: 50px;height: 50px">역할</td>
+			<td>
+				<select name="roll" id="roll">
+					<option value="팀장" selected="selected">팀장</option>
+					<option value="프론트개발">프론트개발</option>
+					<option value="백단개발">백단개발</option>
+					<option value="android">android</option>
+					<option value="민폐">민폐</option>
+				</select>
+			</td>
+		</tr>
+	</table>
+	<input type="button" id="modifyBtn" value="수정확인" />
+	</form>
+</div>
+<form method="POST" enctype="multipart/form-data" 
+		action="${context}/member.do?action=fileupload&page=retrieve">
+  파일업로드: <input type="file" name="upfile"><br/>
+  <input type="submit" value="파일업로드"> 
+</form>
+
+<script>
+	document.getElementById('modifyBtn')
+.addEventListener('click',function(){
+	alert('update Click !!');
+	var form = document.getElementById('updateForm');
+	form.action="${context}/member/modify/public/member/retrieve";
+	form.method ="POST";
+	form.submit();
+});
+
+$('#roll').val('${user.roll}').prop('selected',true);
+		
+</script>
