@@ -1,8 +1,9 @@
 package com.gms.web.lambda;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
-import com.google.common.base.Function;
+
 
 /*
  * Consumer<T>  void accept(T t)  메소드가 1개 C,U,D

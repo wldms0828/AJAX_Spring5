@@ -14,18 +14,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes("context")
-public class HomeController {
-	static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+public class HomeCtrl {
+	static final Logger logger = LoggerFactory.getLogger(HomeCtrl.class);
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpSession session, HttpServletRequest request) {
+	public String home(Model model,HttpServletRequest request) {
 		String context = request.getContextPath();
-		logger.info("\n --------- Welcome {} !! ----------","Home");
-		session.setAttribute("context", context );
-		return "public:common/content.tiles";
+		logger.info("\n --------- Welcome {} !! ----------", context);
+		model.addAttribute("context",Util.ctx.apply(request));
+		Util.log.accept("aaa=====>"+Util.ctx.apply(request));
+		return "main";
 	}
 	@RequestMapping("/move/{prefix}/{dir}/{page}")
 	public String move(

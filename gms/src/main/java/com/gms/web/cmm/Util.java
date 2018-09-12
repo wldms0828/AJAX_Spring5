@@ -1,15 +1,20 @@
 package com.gms.web.cmm;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
-import com.google.common.base.Function;
+import javax.servlet.http.HttpServletRequest;
+
+
 
 public class Util {
 	public static Consumer<Integer> logi = System.out::println;
 	public static Consumer<String> log = System.out::println;
 	public static Function<String, Integer> convInt = Integer::parseInt;
-	public static Predicate<String> p = s->s.equals("");
-	public static Predicate<String> notP = p.negate();
+	public static Predicate<String> isNull = s->s.equals("");
+	public static Predicate<String> notNull = isNull.negate();
+	public static Function<HttpServletRequest, String> ctx=HttpServletRequest::getContextPath;
+							//r->r.getContextPath();
 	
 }

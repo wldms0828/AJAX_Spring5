@@ -80,20 +80,10 @@ app = {
 	},
 	setContentView : ()=>{
 		console.log('step 4 ::'+app.j());
+		
 	}
 };
-app.session = {
-	context : x=>{
-		console.log('step 2 ::'+x);
-		sessionStorage.setItem('context',x);
-		sessionStorage.setItem('js',x+'/resources/js');
-		sessionStorage.setItem('css',x+'/resources/css');
-		sessionStorage.setItem('img',x+'/resources/img');
-	},
-	path : x=>{
-		return sessionStorage.getItem(x);
-	}
-};
+
 app.x = ()=>{
 	return app.session.path('context');
 };

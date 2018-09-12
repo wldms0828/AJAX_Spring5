@@ -2,6 +2,7 @@ package com.gms.web.mbr;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.slf4j.Logger;
@@ -19,11 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.gms.web.cmm.Util;
-import com.google.common.base.Function;
+
 @Controller
 @RequestMapping("/member")
 //어노테이션을 읽어 오는 것은 mvc "/member" string 값을 저장하는 공간은 spring 
-@SessionAttributes("user")
 @RestController
 public class MemberCtrl {
 	static final Logger logger = LoggerFactory.getLogger(MemberCtrl.class);
@@ -68,11 +68,11 @@ public class MemberCtrl {
 	@PostMapping("/login")
 	public String login(@ModelAttribute("member") Member param, Model model) {
 		logger.info("\n --------- MemberController {} !!--------","login()");
-		/*Predicate<String> p = s->s.equals("");*/
+		/*Predicate<String> p = s->s.equals("");
 		Predicate<String> p = s->s.equals("");
-		Predicate<String> notP = p.negate();/*	ngate 는 !s*/
+		Predicate<String> notP = p.negate();	ngate 는 !s*/
 		String view = "login__failed";
-		if(notP.test(mbrMapper.exist(member.getUserid()))) {
+		if(Util.notNull.test(mbrMapper.exist(member.getUserid()))) {
 			Function<Member, String> f = (t)->{
 				return mbrMapper.login(t);
 			};
