@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.gms.web.cmm.Util;
@@ -22,6 +24,7 @@ import com.google.common.base.Function;
 @RequestMapping("/member")
 //어노테이션을 읽어 오는 것은 mvc "/member" string 값을 저장하는 공간은 spring 
 @SessionAttributes("user")
+@RestController
 public class MemberCtrl {
 	static final Logger logger = LoggerFactory.getLogger(MemberCtrl.class);
 	@Autowired Member member;
@@ -62,7 +65,7 @@ public class MemberCtrl {
 		memberService.remove(user);
 		return "redirect:/";
 	}
-	@RequestMapping("/login")
+	@PostMapping("/login")
 	public String login(@ModelAttribute("member") Member param, Model model) {
 		logger.info("\n --------- MemberController {} !!--------","login()");
 		/*Predicate<String> p = s->s.equals("");*/
