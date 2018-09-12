@@ -11,6 +11,7 @@ import java.util.function.Predicate;
  * UnaryOperator는 단항연산자
  * 이미 만들어져 있다고 생각하면 된다.
  * */
+
 public class OracleLambda {
 	public static void main(String[] args) {
 		Predicate<String> p = s-> s.length() == 0;
