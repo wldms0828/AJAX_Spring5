@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div>Click here</div>
+<div>to iterate through</div>
+<div>these divs.</div>
+ 
+<script>
+$( document.body ).click(function() {
+  $( "div" ).each(function( i ) {
+	  //i를 내부에서 이미 가지고 있다
+    if ( this.style.color !== "blue" ) {
+      this.style.color = "blue";
+    } else {
+      this.style.color = "";
+    }
+  });
+});
+</script>
+</body>
+</html>
