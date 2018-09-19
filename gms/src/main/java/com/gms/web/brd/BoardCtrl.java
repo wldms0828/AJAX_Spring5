@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.gms.web.mbr.Member;
-import com.gms.web.mbr.MemberService;
+
 
 
 @Controller

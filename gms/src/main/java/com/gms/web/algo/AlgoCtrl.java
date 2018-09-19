@@ -26,7 +26,7 @@ public class AlgoCtrl {
 		Util.log.accept("넘어온 화폐의 값 : "+money);
 	}
 	//GET방식
-	@PostMapping("/money/")
+	@PostMapping("/money")
 	public @ResponseBody Map<String,Object>
 		money2(@RequestBody Map<String,Object> map) {
 		Map<String,Object>rmap = new HashMap<>();

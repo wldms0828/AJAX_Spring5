@@ -14,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -28,17 +30,17 @@ import com.gms.web.cmm.Util;
 public class MemberCtrl {
 	static final Logger logger = LoggerFactory.getLogger(MemberCtrl.class);
 	@Autowired Member member;
-	@Autowired MemberService memberService;
 	@Autowired MemberMapper mbrMapper;
-	@RequestMapping(value="/add/{prefix}/{dir}/{page}", method=RequestMethod.POST)
-	public String add(@ModelAttribute("member") Member member,
-			@PathVariable String prefix,
-			@PathVariable String dir,
-			@PathVariable String page) {
+	@PostMapping("/add")
+	public @ResponseBody Map<String,Object> 
+			add(@RequestBody Map<String,Object> map) {
 		logger.info("\n --------- MemberController {} !!--------","add()");
+		Map<String,Object>amap = new HashMap<>();
+		Util.log.accept("회원가입Mctrl ::");
+		amap.put("addtest", "회원가입성공~!");
 		System.out.println("name is : "+ member.getName());
-		memberService.add(member);
-		return prefix+":"+dir+"/"+page+".tiles";
+
+		return amap;
 		//return 은 MemberController에서 해주던 carrier랑 비슷한 기능을 한다.
 	}
 	@RequestMapping("/list")
@@ -56,35 +58,56 @@ public class MemberCtrl {
 			@PathVariable String dir,
 			@PathVariable String page) {
 		logger.info("\n --------- MemberController {} !!--------","modify()");
-		memberService.modify(user);	
+
 		return prefix+":"+dir+"/"+page+".tiles";
 	}
 	@RequestMapping(value="/remove", method=RequestMethod.POST)
 	public String remove(@ModelAttribute("user") Member user) {
 		logger.info("\n --------- MemberController {} !!--------","remove()");
-		memberService.remove(user);
+
 		return "redirect:/";
 	}
 	@PostMapping("/login")
-	public String login(@ModelAttribute("member") Member param, Model model) {
+	public @ResponseBody Map<String,Object>
+		login(@RequestBody Member param) {
 		logger.info("\n --------- MemberController {} !!--------","login()");
 		/*Predicate<String> p = s->s.equals("");
 		Predicate<String> p = s->s.equals("");
 		Predicate<String> notP = p.negate();	ngate 는 !s*/
-		String view = "login__failed";
-		if(Util.notNull.test(mbrMapper.exist(member.getUserid()))) {
+		Map<String,Object> rmap = new HashMap<>();
+		Util.log.accept("넘어온 로그인 정보  id :: "+param.getUserid());
+		Util.log.accept("넘어온 로그인 정보 pw :: "+param.getPassword());
+		String pwValid = "WRONG";
+		String idValid="WRONG";
+		if(mbrMapper.count(param)!=0) {
+			idValid="CORRECT";
+			Function <Member, Member> f = (t)->{return mbrMapper.get(t);
+			};
+			member = f.apply(param);
+			pwValid = (member!=null)?"CORRECT":"WRONG";
+			System.out.println("====password 유효성 ====="+pwValid);
+			member = (member!=null)?member:new Member();
+		}
+		
+/*		if(Util.notNull.test(mbrMapper.exist(param.getUserid()) )) {
 			Function<Member, String> f = (t)->{
 				return mbrMapper.login(t);
 			};
-			view = f.apply(param).equals("1")?"login__success":"login__failed";			
-		}
+			pwValid = f.apply(param).equals("1")?"CORRECT":"WRONG";			
+		}else {
+			idValid="NOT EXIST";
+		}*/
 		//위에서 사용한 함수는 파라미터가 끝나면 바로 없어진다고 생각하면 된다.
-		/*Predicate<String> ls = s->s.equals("login__success");*/
-		member= ((Predicate.isEqual("login__success").test(view)))?
-					mbrMapper.selectOne(param):new Member();
-					Util.log.accept(param.toString());
-				
-		return view;
+		/*Predicate<String> ls = s->s.equals("login__success");
+		member= ((Predicate.isEqual("login__success").test(pwValid)))?
+				mbrMapper.get(param):new Member();
+					Util.log.accept(param.toString());*/
+		System.out.println("MEMBER ::" + member);
+		rmap.put("ID", idValid);
+		rmap.put("PW", pwValid);
+		rmap.put("MBR", member);
+		
+		return rmap;
 	}
 	@RequestMapping("/logout")
 	public String logout() {

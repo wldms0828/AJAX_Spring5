@@ -6,7 +6,7 @@
   <select id="selectOne" resultType="com.gms.web.mbr.Member">
     SELECT * FROM MEMBER WHERE USERID LIKE #{userid}
   </select>
-  <insert id="insert">
+  <insert id="post">
   	INSERT INTO MEMBER ( USERID, SSN, NAME, GENDER, AGE, ROLL, TEAMID, PASSWORD ) 
   		VALUES (#{userid},#{ssn},#{name},#{gender},#{age},#{roll},#{teamid},#{password})
   </insert>
@@ -26,8 +26,22 @@
 	<select  id="exist" resultType="java.lang.String">
 		SELECT COUNT(USERID) FROM MEMBER WHERE USERID LIKE #{userid} 
 	</select>
-	 <select id="retrieve" resultType="com.gms.web.mbr.Member">
-	 SELECT USERID, TEAMID , AGE, GENDER,  NAME, ROLL, SSN	
-	 	FROM MEMBER WHERE USERID LIKE #{userid} 
+	 <select id="get" resultType="com.gms.web.mbr.Member">
+	 SELECT USERID, TEAMID , AGE, GENDER,  NAME, ROLL, SSN
+	 	FROM MEMBER 
+	 	<where>
+	 		<if test=" userid != null and userid != '' ">
+	 		USERID LIKE #{userid}
+	 		</if>
+	 		<if test=" password != null and password != '' ">
+	 		AND PASSWORD LIKE #{password}
+	 		</if>
+	 	</where> 
 	 </select>
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM MEMBER
+		<where>
+			<if test="userid !=null and userid !=''">USERID LIKE #{userid}</if>
+		</where>
+	</select>
 </mapper>

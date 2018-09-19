@@ -117,7 +117,7 @@ algo.main = (()=>{
 		        				  .click(e=>{
 		        					  alert('화폐금액'+$('#money').val());
 		        					$.ajax({
-		        						url :ctx+ '/algo/money/',
+		        						url :ctx+ '/algo/money',
 		        						method : 'post',
 		        						contentType : 'application/json',
 		        						data : JSON.stringify({money : $('#money').val()}),

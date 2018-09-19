@@ -1,5 +1,5 @@
 function navUI(){
-	return +'<nav class="navbar navbar-inverse">'
+	return '<nav class="navbar navbar-inverse">'
 	+'<div class="container-fluid">'
 	  +'<!-- Brand and toggle get grouped for better mobile display -->'
 	  +'<div class="navbar-header">'
@@ -36,8 +36,8 @@ function navUI(){
 	    +'<ul class="nav navbar-nav navbar-right">'
 	      +'<li><a href="#">Link</a></li>'
 	      +'<li class="dropdown">'
-	        +'<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">'
-	        		+'로그인 <span class="caret"></span>'
+	        +'<a id="ch_login" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">'
+	        	+'로그인 <span class="caret"></span>'
 	        +'</a>'
 	        +'<ul class="dropdown-menu" role="menu">'
 	          +'<li><a id="login__btn">로그인</a></li>'
