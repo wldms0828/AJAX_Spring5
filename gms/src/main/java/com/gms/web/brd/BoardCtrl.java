@@ -21,13 +21,13 @@ import com.gms.web.mbr.Member;
 public class BoardCtrl {
 
 static final Logger logger = LoggerFactory.getLogger(BoardCtrl.class);
-	@Autowired Article article;
+	@Autowired Board article;
 	@Autowired BoardService boardService;
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public void add(@ModelAttribute("member") Article article) {
+	public void add(@ModelAttribute("member") Board article) {
 		logger.info("\n --------- BoardController {} !!--------","add()");
 //		System.out.println("name is : "+ article.getName());
-		boardService.add(article);
+		/*boardService.add(article);*/
 	}
 	@RequestMapping("/list")
 	public void list() {}
@@ -38,17 +38,17 @@ static final Logger logger = LoggerFactory.getLogger(BoardCtrl.class);
 	@RequestMapping("/count")
 	public void count() {}
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public void modify(@ModelAttribute("member") Article member) {
+	public void modify(@ModelAttribute("member") Board member) {
 		logger.info("\n --------- BoardController {} !!--------","modify()");
-		boardService.modify(member);	
+		/*boardService.modify(member);*/	
 	}
 	@RequestMapping(value="/remove", method=RequestMethod.POST)
-	public void remove(@ModelAttribute("member") Article member) {
+	public void remove(@ModelAttribute("member") Board member) {
 		logger.info("\n --------- BoardController {} !!--------","remove()");
-		boardService.remove(member);
+		/*boardService.remove(member);*/
 	}
 	@RequestMapping("/login")
-	public String login(@ModelAttribute("member") Article member, Model model) {
+	public String login(@ModelAttribute("member") Board member, Model model) {
 		logger.info("\n --------- BoardController {} !!--------","login()");
 		Map<String, String> map = new HashMap<>();
 //		if(boardService.login(member).equals("1")) {

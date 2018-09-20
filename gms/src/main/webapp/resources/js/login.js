@@ -1,7 +1,7 @@
 function loginUI(){
 	return '<div id="contentBox">'
 +'<form id="login__form" name="login_form" >'
-  +'<div class="container">'
+  +'<div id= "container" class="container">'
     +'<label for="uname"><b>Username</b></label>'
     +'<input type="text" placeholder="아이디 입력" name="userid" id="userid" required>'
     +'<label for="psw"><b>Password</b></label>'
@@ -14,7 +14,9 @@ function loginUI(){
 
 +'  <div class="container" style="background-color:#f1f1f1">'
     +'<button type="button" class="cancel_btn">Cancel</button>'
-    +'<span class="psw">Forgot <a href="#">password?</a></span>'
+    +'<span class="psw">Forgot'
+    +'<a href="#">password?</a>'
+    +'</span>'
   +'</div>'
 +'</form>'
 +'</div>';
