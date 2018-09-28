@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.gms.web.cmm.Criteria;
 import com.gms.web.cmm.SearchCriteria;
+import com.gms.web.page.Pagination;
 @Repository
 public interface BoardMapper {
 
@@ -17,14 +18,14 @@ public interface BoardMapper {
 
   public void delete(Integer bno) throws Exception;
 
-  public List<Board> listAll() throws Exception;
+  public List<Board> listAll(Pagination p) ;
 
   public List<Board> listPage(int page) throws Exception;
 
  public List<Board> listCriteria(Criteria cri) throws Exception;
 
   public int countPaging(Criteria cri) throws Exception;
-  
+  public int countAll();
   //use for dynamic sql
   
   public List<Board> listSearch(SearchCriteria cri)throws Exception;

@@ -111,10 +111,10 @@ div#footer{
 	line-height: normal;
 	font-size: 0.5em;
 }
-table{border:1px solid black}
-table tr{border:1px solid black}
-table tr th{border:1px solid black}
-table tr td{border:1px solid black}
+/* table{border:1px solid red} 
+table tr{border:1px solid red}
+table tr th{border:1px solid red}
+table tr td{border:1px solid red} */
 .bg_color_yellow{background-color: #ffff00}
 .center{margin: 0 auto}
 .width_100_pt{width:100%}

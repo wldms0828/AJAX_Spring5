@@ -45,11 +45,61 @@ app.main=(()=>{
 })();
 app.board=(()=>{
 	var header,footer,content,ctx,script,style,nav,w,img;
-	var list =()=>{
-		alert('게시판!!!');
-		$('#header').remove();
-		$('#content').empty();
+	var init=()=>{
+		ctx = $.ctx();
+		img = $.img();
+		script = $.script();
+		style = $.style();
+		header= script+'/header.js';
+		footer=script+'/footer.js';
+		content=script+'/content.js';
+		nav=script+'/nav.js';
+		onCreate();		
 	};
+	var onCreate =()=>{
+		setContentView();
+	};
+	var setContentView=()=>{
+		alert('Board');
+		$('#content').empty();
+		$.getJSON(ctx+'/boards/1',d=>{
+			$.getScript($.script()+'/compo.js',()=>{
+				let x= {
+						type : 'dafault',
+						id : 'table',
+						head : '게시판',
+						body : '오픈게시판 ... 누구든지 사용 가능',
+						list : ['No.','제목','내용','작성자','조회수'],
+						clazz : 'table table-bordered'						
+				};
+				$('#content').append(ui.tbl(x));
+				$.each(d.list,(i,j)=>{
+					$('<tr/>').append(
+					$('<td/>').attr('width','5%').html(j.bno),
+					$('<td/>').attr('width','10%').html(j.title),
+					$('<td/>').attr('width','50%').html(j.content),
+					$('<td/>').attr('width','10%').html(j.writer),
+					$('<td/>').attr('width','10%').html(j.regdate),
+					$('<td/>').attr('width','5%').html(j.viewcnt)
+					).appendTo($('tbody'));
+				});
+				console.log('페이지');
+				let p = {
+						type : 'dafault',
+						id : 'page',
+						head : '페이지',
+						list : ['Previous','1','2','3','4','5','Next']
+				};
+				$('#content').append(ui.page(x));
+				$.each(p.list,(i,j)=>{
+					$('<ul/>').append($('<li/>'))
+					.append($(span).attr({'position':'static',
+										  'margin' : '0 auto'}).html(j));
+				})
+			});
+		});		
+	};
+	return{init:init};
 })();
 app.permission=(()=>{
 	var login=()=>{
@@ -190,7 +240,12 @@ app.router={
     		    		e.preventDefault();
     		    		alert('회원가입 클릭!!');
     		    		app.permission.add();
-        	});
+    	            });
+    	            $('#board').click(e=>{
+    	            	e.preventDefault();
+    	            	alert('게시판클릭');
+    	            	app.board.init();
+    	            });
     	        }).fail(x=>{console.log('로드실패');		        	
     	});
         }
